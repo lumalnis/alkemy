@@ -7,34 +7,37 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
-@Table(name = "peliculaSerie")
+@Table(name = "movies")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class PeliculaSerie {
+public class Movie {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Integer peliculaSerie_id;
+    private Integer pelicula_id;
 
     private String titulo;
 
     private Integer calificacion;
-    
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
 
     @OneToOne
-    private Imagen imagen;
+    private Image imagen;
 
-    @ManyToOne
-    private Personaje personajesAsociados;
+    @OneToOne
+    private Genre genero;
 
+//    @ManyToOne
+//    private Character personajesAsociados;
 }

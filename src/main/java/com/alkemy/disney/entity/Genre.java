@@ -1,4 +1,3 @@
-
 package com.alkemy.disney.entity;
 
 import javax.persistence.Entity;
@@ -13,19 +12,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "genero")
-//@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "genres")
+public class Genre {
 
-public class Genero {
-    
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer genero_id;
-            
+
     private String nombre;
-    
+
     @OneToOne
-    private Imagen imagen;
-    
-    
+    private Image imagen;
+
 }

@@ -1,3 +1,4 @@
+
 package com.alkemy.disney.entity;
 
 import javax.persistence.Entity;
@@ -9,14 +10,14 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @Entity
-@Table(name = "imagen")
-public class Imagen {
-
+@Table(name = "users")
+public class User {
+    
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-
-    private String nombre;
-    private String mime;
+    
+    private String mail;
+    private String password;
 }

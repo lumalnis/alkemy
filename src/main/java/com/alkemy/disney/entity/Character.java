@@ -13,16 +13,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "personaje")
+@Table(name = "characters")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Personaje {
+public class Character {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer personaje_id;
 
     @OneToOne
-    private Imagen imagen;
+    private Image imagen;
 
     private String nombre;
     private Integer edad;
@@ -31,6 +31,6 @@ public class Personaje {
     
 
     @ManyToOne
-    private PeliculaSerie peliculaSerie;
+    private Movie pelicula;
 
 }
