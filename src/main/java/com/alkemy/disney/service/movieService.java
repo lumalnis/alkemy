@@ -3,7 +3,6 @@ package com.alkemy.disney.service;
 import com.alkemy.disney.entity.Image;
 import com.alkemy.disney.entity.Movie;
 import com.alkemy.disney.exception.webException;
-import com.alkemy.disney.repository.imageRepository;
 import com.alkemy.disney.repository.movieRepository;
 import java.util.List;
 import java.util.Optional;
@@ -21,51 +20,38 @@ public class movieService {
     @Autowired
     private imageService imageService;
 
-    @Autowired
-    private imageRepository imageRepository;
-
     //CRUD 
     @Transactional
-    public Movie save(Movie pelicula, MultipartFile image) {
-
-        Movie movie = new Movie();
-        movie.setCalificacion(pelicula.getCalificacion());
-        movie.setTitulo(pelicula.getTitulo());
-        movie.setFechaCreacion(pelicula.getFechaCreacion());
-        movie.setGenero(pelicula.getGenero());
-        if (image != null) {
-            Image img = imageService.save(image);
-            movie.setImagen(img);
-        }
-        return movie;
-    }
-
-    @Transactional
     public Movie create(Movie pelicula, MultipartFile image) throws webException {
-
-        Optional<Movie> optional = movieRepository.findById(pelicula.getPelicula_id());
-        if (optional.isPresent() || optional != null) {
-            throw new webException("Esta pelicula ya existe");
-        } else {
-            try {
-                validate(pelicula);
-                return save(pelicula, image);
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
+        try {
+            validate(pelicula);
+            if (image != null) {
+                Image img = imageService.save(image);
+                pelicula.setImagen(img);
             }
+            return movieRepository.save(pelicula);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return null;
         }
-        return null;
     }
 
-    //FALTA AGRGAR IMAGEN
     @Transactional
-    public Movie modify(Movie pelicula, MultipartFile image) throws webException {
+    public Movie modify(Movie pelicula, MultipartFile image, String id_image) throws webException {
 
         Optional<Movie> optional = movieRepository.findById(pelicula.getPelicula_id());
         if (optional.isPresent() || optional != null) {
+            Movie peliculaModificada = optional.get();
             try {
                 validate(pelicula);
-                return save(pelicula, image);
+                peliculaModificada.setTitulo(pelicula.getTitulo());
+                peliculaModificada.setCalificacion(pelicula.getCalificacion());
+                peliculaModificada.setFechaCreacion(pelicula.getFechaCreacion());
+                peliculaModificada.setGenero(pelicula.getGenero());
+                if (image != null) {
+                    pelicula.setImagen(imageService.update(id_image, image));
+                }
+                return movieRepository.save(peliculaModificada);
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
@@ -76,38 +62,40 @@ public class movieService {
     }
 
     @Transactional
-    public void delete(Movie pelicula) {
+    public void delete(Integer pelicula_id) throws Exception {
 
-        Optional<Movie> optional = movieRepository.findById(pelicula.getPelicula_id());
-
-        if (optional.isPresent()) {
-
-            pelicula = optional.get();
-            imageRepository.delete(pelicula.getImagen());
-            movieRepository.delete(pelicula);
+        try {
+            movieRepository.deleteById(pelicula_id);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
     }
 
     //VALIDACIONES
-    public void validate(Movie pelicula) {
+    public void validate(Movie pelicula) throws webException {
 
         if (pelicula.getTitulo() == null || pelicula.getTitulo().isEmpty()) {
+            throw new webException("Agregue un título.");
         }
         if (pelicula.getCalificacion() == null) {
-            //throw new webException ()            
+            throw new webException("Elija una calificacion.");
         }
 
         if (pelicula.getFechaCreacion() == null) {
+            throw new webException("Elija una fecha.");
         }
-        if (pelicula.getGenero() == null) {
-        }
-        if (pelicula.getImagen() == null) {
-        }
+//        if (pelicula.getGenero() == null) {
+//            throw new webException("Elija un genero.");
+//        }
     }
 
     //LIST
     public List<Movie> listAll() {
-        return movieRepository.findAll();
+        return (List<Movie>) movieRepository.findAll();
+    }
+
+    public Optional<Movie> findById(Integer id) {
+        return movieRepository.findById(id);
     }
 
     public List<Movie> listByTitle(String titulo) {
@@ -119,7 +107,7 @@ public class movieService {
     }
 
     public List<Movie> listByOrder(String order) {
-        return movieRepository.byOrder("%" + order + "%");
+        return movieRepository.byOrder(order.toUpperCase());
     }
 
 }

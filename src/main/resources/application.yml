@@ -1,8 +1,8 @@
 
 spring:
  #Configuraci\u00f3n MySQL
-  datasource: 
-    url: jdbc:mysql://localhost:3306/disney?allowPublicKeyRetrieval=true&useSSL=false&useTimezone=true&serverTimezone=GMT&characterEncoding=UTF-8
+  datasource:
+    url: jdbc:mysql://localhost:3306/disney
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver 

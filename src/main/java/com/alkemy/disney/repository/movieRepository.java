@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface movieRepository extends JpaRepository<Movie, Integer> {
     
-    @Query("SELECT m FROM Movie m WHERE nombre LIKE :query")
+     
+    @Query("SELECT m FROM Movie m WHERE titulo LIKE :query")
     public List<Movie> byName(@Param("query") String query);
     
     @Query("SELECT m FROM Movie m WHERE genero = :query")
@@ -19,4 +20,6 @@ public interface movieRepository extends JpaRepository<Movie, Integer> {
     
     @Query("SELECT m FROM Movie m ORDER BY :query")
     public List<Movie> byOrder (@Param("query") String query);
+    
+    //PORQUE NO FUNCIONA ORDER BY m.titulo :query ???
 }

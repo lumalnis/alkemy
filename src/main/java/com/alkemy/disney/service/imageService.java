@@ -1,6 +1,7 @@
 package com.alkemy.disney.service;
 
 import com.alkemy.disney.entity.Image;
+import com.alkemy.disney.exception.webException;
 import com.alkemy.disney.repository.imageRepository;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -28,5 +29,31 @@ public class imageService {
             }
         }
         return null;
+    }
+
+    @Transactional
+    public Image update(String id, MultipartFile img) throws webException {
+
+        try {
+            Image image = new Image();
+            if (id != null) {
+                Optional<Image> optional = imageRepository.findById(id);
+                if (optional.isPresent()) {
+                    image = optional.get();
+                }
+                image.setMime(img.getContentType());
+                image.setNombre(img.getName());
+                image.setContenido(img.getBytes());
+                return imageRepository.save(image);
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Transactional
+    public void delete(Image image) {
+        imageRepository.delete(image);
     }
 }

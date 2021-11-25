@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Movie {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer pelicula_id;
 
@@ -29,7 +29,7 @@ public class Movie {
     private Integer calificacion;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
 
     @OneToOne

@@ -11,12 +11,12 @@ import org.hibernate.annotations.GenericGenerator;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class Usuario {
     
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    private String usuario_id;
     
     private String mail;
     private String password;
