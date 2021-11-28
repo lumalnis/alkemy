@@ -29,17 +29,18 @@ public class movieService {
                 Image img = imageService.save(image);
                 pelicula.setImagen(img);
             }
-            return movieRepository.save(pelicula);
+
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            return null;
+
         }
+        return movieRepository.save(pelicula);
     }
 
     @Transactional
     public Movie modify(Movie pelicula, MultipartFile image, String id_image) throws webException {
 
-        Optional<Movie> optional = movieRepository.findById(pelicula.getPelicula_id());
+        Optional<Movie> optional = movieRepository.findById(pelicula.getId());
         if (optional.isPresent() || optional != null) {
             Movie peliculaModificada = optional.get();
             try {
@@ -62,10 +63,10 @@ public class movieService {
     }
 
     @Transactional
-    public void delete(Integer pelicula_id) throws Exception {
+    public void delete(String id) throws Exception {
 
         try {
-            movieRepository.deleteById(pelicula_id);
+            movieRepository.deleteById(id);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -84,17 +85,17 @@ public class movieService {
         if (pelicula.getFechaCreacion() == null) {
             throw new webException("Elija una fecha.");
         }
-//        if (pelicula.getGenero() == null) {
-//            throw new webException("Elija un genero.");
-//        }
+        if (pelicula.getGenero() == null) {
+            throw new webException("Elija un genero.");
+        }
     }
 
     //LIST
     public List<Movie> listAll() {
-        return (List<Movie>) movieRepository.findAll();
+        return movieRepository.findAll();
     }
 
-    public Optional<Movie> findById(Integer id) {
+    public Optional<Movie> findById(String id) {
         return movieRepository.findById(id);
     }
 
@@ -108,6 +109,9 @@ public class movieService {
 
     public List<Movie> listByOrder(String order) {
         return movieRepository.byOrder(order.toUpperCase());
+    }
+        public List<Movie> byQuery(String query) {
+        return movieRepository.byQuery("%" + query + "%");
     }
 
 }

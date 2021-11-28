@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface genreRepository extends JpaRepository<Genre,Integer>{
+public interface genreRepository extends JpaRepository<Genre,String>{
     
     @Query("SELECT g FROM Genre g GROUP BY nombre")
     public List<Genre> groupBy ();

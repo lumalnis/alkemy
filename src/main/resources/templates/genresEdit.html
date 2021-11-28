@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <main>
+        <header th:replace="/fragments/header :: header"></header>
+        <div th:if=${error} class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div th:if=${success} class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="edit">
+            <h3>Generos</h3>
+            <a th:href="@{/genres/create}"><button id="crear" class="btn btn-light">Crear</button></a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <p th:if="${#lists.isEmpty(generos)}">No hay generos para mostrar</p>
+                    <tr th:each=" g : ${generos}">
+                        <td th:text="${g.nombre}"></td>
+                        <td>
+                            <a th:href="@{/genres/create} + '?id=' + ${g.id}"> <button
+                                    class="btn btn-light btn-sm">Editar</button></a>
+                            <a th:href="@{/genres/delete} + '?id=' + ${g.id}"><button
+                                    class="btn btn-light btn-sm">Eliminar</button></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <script th:replace="/fragments/script :: script"></script>
+</body>
+
+</html>

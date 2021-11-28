@@ -2,13 +2,14 @@ package com.alkemy.disney.repository;
 
 import com.alkemy.disney.entity.Character;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface characterRepository extends JpaRepository<Character, Integer> {
+public interface characterRepository extends JpaRepository<Character, String> {
 
 //    @Query("SELECT c FROM Character c WHERE nombre LIKE :query")
 //    public List<Character> byName(@Param("query") String query);
@@ -21,13 +22,13 @@ public interface characterRepository extends JpaRepository<Character, Integer> {
     
     @Query("SELECT c FROM Character c WHERE"
             + " nombre LIKE :query"
-            + " or edad = :query"
-            + " or peso = :query")
+            + " or edad LIKE :query"
+            + " or peso LIKE :query")
      public List<Character> byQuery(@Param("query") String query);
 
-    @Query("SELECT m FROM Character c, Movie m WHERE"
-            + " c.personaje_id LIKE :query")
-    public List<Character> allMovies(@Param("query") String query);
+//    @Query("SELECT m FROM Character c, Movie m WHERE"
+//            + " c.id LIKE :query")
+//    public List<Character> allMovies(@Param("query") String query);
     //VER BIEN ESTO SI FUNCIONA
 }
 

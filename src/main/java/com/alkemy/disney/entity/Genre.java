@@ -1,26 +1,28 @@
 package com.alkemy.disney.entity;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @Entity
 @Table(name = "genres")
-public class Genre {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Genre implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Id
-    private Integer genero_id;
-
+    private String id;
     private String nombre;
-
+    
     @OneToOne
     private Image imagen;
 

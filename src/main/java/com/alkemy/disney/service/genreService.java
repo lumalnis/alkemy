@@ -39,7 +39,7 @@ public class genreService {
     @Transactional
     public Genre modify(Genre genero, MultipartFile image, String id_image) throws webException {
 
-        Optional<Genre> optional = genreRepository.findById(genero.getGenero_id());
+        Optional<Genre> optional = genreRepository.findById(genero.getId());
         if (optional.isPresent() || optional != null) {
             Genre generoModificado = optional.get();
             try {
@@ -60,10 +60,10 @@ public class genreService {
     }
 
     @Transactional
-    public void delete(Integer genero_id) throws Exception {
+    public void delete(String id) throws Exception {
 
         try {
-            genreRepository.deleteById(genero_id);
+            genreRepository.deleteById(id);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -78,10 +78,10 @@ public class genreService {
 
     //LIST
     public List<Genre> listAll() {
-        return (List<Genre>) genreRepository.findAll();
+        return genreRepository.findAll();
     }
 
-    public Optional<Genre> findById(Integer id) {
+    public Optional<Genre> findById(String id) {
         return genreRepository.findById(id);
     }
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <main>
+        <header th:replace="/fragments/header :: header"></header>
+        <div th:if=${error} class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if=${success} class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="edit">
+            <h3>Personajes</h3>
+            <a th:href="@{/characters/create}"><button class="btn btn-light" id="crear2">Crear</button></a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Editar</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <p th:if="${#lists.isEmpty(personajes)}">No hay personajes para mostrar</p>
+                    <tr th:each=" p : ${personajes}">
+                        <td th:text="${p.nombre}"></td>
+                        <td>
+                            <a th:href="@{/characters/create} + '?id=' + ${p.id}"><button
+                                    class="btn btn-light">Editar</button></a>
+                            <a th:href="@{/characters/delete} + '?id=' + ${p.id}"><button
+                                    class="btn btn-light">Eliminar</button></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <script th:replace="/fragments/script :: script"></script>
+</body>
+
+</html>

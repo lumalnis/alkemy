@@ -19,10 +19,10 @@ public class characterService {
     private characterRepository characterRepository;
 
     @Autowired
-    private imageRepository imageRepository;
+    private imageService imageService;
 
     @Autowired
-    private imageService imageService;
+    private movieService movieService;
 
     //CRUD 
     @Transactional
@@ -34,17 +34,16 @@ public class characterService {
                 Image img = imageService.save(image);
                 personaje.setImagen(img);
             }
-            return characterRepository.save(personaje);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return null;
+        return characterRepository.save(personaje);
     }
 
     @Transactional
     public Character modify(Character personaje, MultipartFile image, String id_image) throws webException {
 
-        Optional<Character> optional = characterRepository.findById(personaje.getPersonaje_id());
+        Optional<Character> optional = characterRepository.findById(personaje.getId());
         if (optional.isPresent() || optional != null) {
             Character personajeModificado = optional.get();
             try {
@@ -69,9 +68,13 @@ public class characterService {
     }
 
     @Transactional
-    public void delete(Integer personaje_id) {
+    public void delete(String id) {
         try {
-            characterRepository.deleteById(personaje_id);
+            Optional<Character> optional = characterRepository.findById(id);
+        if (optional.isPresent()) {
+            characterRepository.delete(optional.get());
+        }
+           
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
@@ -83,7 +86,7 @@ public class characterService {
             throw new webException("Necesito un nombre.");
         }
         if (personaje.getHistoria() == null || personaje.getHistoria().isEmpty()) {
-            throw new webException("Necesito una hixstoria.");
+            throw new webException("Necesito una historia.");
         }
     }
 
@@ -92,7 +95,7 @@ public class characterService {
         return characterRepository.findAll();
     }
 
-    public Optional<Character> findById(Integer id) {
+    public Optional<Character> findById(String id) {
         return characterRepository.findById(id);
     }
 
@@ -100,9 +103,9 @@ public class characterService {
         return characterRepository.byQuery("%" + query + "%");
     }
 
-    public List<Character> byMovie(String id_movie) {
-        return characterRepository.allMovies(id_movie);
-    }
+//    public List<Character> byMovie(String id_movie) {
+//        return characterRepository.allMovies(id_movie);
+//    }
 
 //    public List<Character> byName(String name) {
 //        return characterRepository.byName(name);

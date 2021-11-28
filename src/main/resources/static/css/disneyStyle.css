@@ -1,0 +1,299 @@
+/*NORMALIZE*/
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    color: #000;
+    list-style: none;
+    width: auto;
+}
+
+/*NORMALIZE*/
+body {
+    width: 100vw;
+    min-height: 100vh;
+
+    background-image: url(/img/MMR.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+main {
+    width: 100vw;
+    min-height: 90vh;
+    position: relative;
+}
+
+/*NAVBAR*/
+nav {
+    background-color: white;
+    width: 100%;
+    position: sticky;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#logo {
+    width: 4rem;
+    align-items: flex-start;
+}
+
+.ingreso {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+
+}
+
+.ingreso li {
+    padding: 0 10px;
+}
+
+/*NAVBAR*/
+
+/*INDEX*/
+.login {
+    display: flex;
+    position: absolute;
+    margin: 6rem 0 6rem 6rem;
+    flex-direction: column;
+    max-width: 40%;
+    min-width: 30%;
+    background-color: #fff;
+    border-width: 1rem;
+    border-style: solid;
+    border-radius: 0.5rem;
+    border-color: #fff;
+
+}
+
+form {
+    justify-content: center;
+}
+
+form input {
+    margin: 2px 0 10px;
+    padding: 5px 0;
+}
+
+form label {
+    padding: 5px 0;
+}
+
+form button {
+    color: red;
+    padding: 5px 0;
+}
+
+form button:hover {
+    background-color: red;
+    color: #fff;
+}
+
+form p {
+    padding: 5px 0;
+    margin-top: 5px;
+}
+
+form p a {
+    color: red;
+}
+
+form h3 {
+    font-size: larger;
+    align-self: center;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+}
+
+.options li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.options button {
+    width: 150px;
+    margin: 1rem;
+}
+
+/*INDEX*/
+
+/*FOOTER*/
+footer {
+    clear: both;
+    position: relative;
+    width: 100%;
+    height: 4rem;
+    background-color: #000;
+    color: white;
+    position: static;
+    bottom: 0;
+    font-size: small;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 10px;
+}
+
+footer p {
+    color: #fff;
+    font-size: small;
+    padding-right: 10px;
+
+}
+
+/*FOOTER*/
+
+/*CHARACTERS*/
+.container {
+    margin: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container1 {
+    align-items: center;
+}
+
+.buscador {
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px;
+    min-width: 400px;
+    align-items: baseline;
+}
+
+.form-control {
+    height: 60px;
+}
+
+.btn {
+    height: 60px;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: whitesmoke;
+    padding: 8px 8px 8px 0;
+    margin: 32px 0;
+    max-width: 70%;
+    min-height: 250px;
+    border: honeydew;
+    border-width: 5px;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.detalle {
+    width: 40%;
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detalle img {
+    background-color: grey;
+}
+
+.detalle2 {
+    width: 60%;
+
+    font-size: small;
+}
+
+.valores {
+    display: flex;
+    flex-direction: row;
+}
+
+.valores p {
+    margin-right: 16px;
+}
+
+.container3 {
+    width: 80vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 1rem 6rem;
+}
+
+.contenido {
+    margin: 1rem;
+    background-color: whitesmoke;
+    border-style: solid;
+    border-color: honeydew;
+    border-width: 5px;
+    border-radius: 10px;
+    width: 140px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenido img {
+    background-color: grey;
+    width: 140px;
+    height: 200px;
+}
+
+/*CHARACTERS*/
+
+/*EDIT*/
+.edit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: red;
+    padding: 3rem;
+}
+
+.edit button {
+    margin: 0.5rem;
+    height: 30px;
+}
+
+#crear {
+    width: 300px;
+    height: 50px;
+    margin: 2rem;
+}
+
+#crear2 {
+    width: 300px;
+    height: 50px;
+    margin: 2rem;
+}
+#crear3{
+    width: 300px;
+    height: 50px;
+    margin: 2rem;
+}
+
+.edit form {
+    width: 50%;
+}
+
+
+/*EDIT*/
+.error{
+    background-color: #fff;
+     
+}

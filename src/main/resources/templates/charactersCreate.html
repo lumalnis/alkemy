@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <main>
+        <header th:replace="/fragments/header :: header"></header>
+        <div th:if=${error} class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if=${success} class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="edit">
+            <form action="/characters/create" method="POST" th:object="${character}" enctype="multipart/form-data">
+                <input hidden th:field="*{id}">
+
+                <label for="nombre" class="form-label mt-2"></label>
+                <input type="text" class="form-control" name="nombre" th:value="*{nombre}"
+                    placeholder="Ingrese el Nombre">
+
+                <label for="edad" class="form-label mt-2"></label>
+                <input type="number" class="form-control" name="edad" placeholder="Ingrese Edad" th:value="*{edad}">
+
+                <label for="peso" class="form-label mt-2"></label>
+                <input type="number" step="0.01" class="form-control" placeholder="Ingrese Peso" th:value="*{peso}">
+
+                <label for="historia" class="form-label mt-2"></label>
+                <input type="text" class="form-control" name="historia" th:value="*{historia}"
+                    placeholder="Ingrese la historia">
+
+
+                <input type="submit" class="form-control" id="enviar">
+            </form>
+        </div>
+    </main>
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <script th:replace="/fragments/script :: script"></script>
+</body>
+
+</html>

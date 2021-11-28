@@ -1,0 +1,8 @@
+<header th:fragment="header">
+    <nav>
+        <li><a th:href="@{/}"><img id="logo" src="/img/mickeyLogo.jpg" alt=""></a></li>
+        <div class="ingreso">
+            <a sec:authorize="isAuthenticated() or hasRole('ROLE_ADMIN')" th:href="@{/logout}"><button class="btn btn-danger">Logout</button></a>
+        </div>
+    </nav>
+</header>

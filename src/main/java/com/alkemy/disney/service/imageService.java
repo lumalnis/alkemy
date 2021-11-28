@@ -3,6 +3,7 @@ package com.alkemy.disney.service;
 import com.alkemy.disney.entity.Image;
 import com.alkemy.disney.exception.webException;
 import com.alkemy.disney.repository.imageRepository;
+import java.io.IOException;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class imageService {
     private imageRepository imageRepository;
 
     @Transactional
-    public Image save(MultipartFile file) {
+    public Image save(MultipartFile file) throws IOException{
         if (file != null) {
             try {
                 Image img = new Image();
@@ -24,7 +25,7 @@ public class imageService {
                 img.setMime(file.getContentType());
                 img.setContenido(file.getBytes());
                 return imageRepository.save(img);
-            } catch (Exception e) {
+            } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
         }
@@ -32,7 +33,7 @@ public class imageService {
     }
 
     @Transactional
-    public Image update(String id, MultipartFile img) throws webException {
+    public Image update(String id, MultipartFile img) throws IOException {
 
         try {
             Image image = new Image();
@@ -46,7 +47,7 @@ public class imageService {
                 image.setContenido(img.getBytes());
                 return imageRepository.save(image);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
         return null;

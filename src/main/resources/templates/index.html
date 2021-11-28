@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <main>
+        <header th:replace="/fragments/header :: header"></header>
+        <div th:if=${error} class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if=${success} class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <form class="login" sec:authorize="!isAuthenticated()" th:href="@{/auth/login}" th:action="@{/logincheck}"
+            method="POST">
+            <h3>Ingresar</h3>
+            <label for="mail" class="form-label"> Mail </label>
+            <input type="text" class="form-control" th:value="${mail}" name="mail" placeholder="Ingrese nombre de mail">
+
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" name="password" placeholder="6 caracteres mínimo">
+
+            <button type="submit" class="">Login</button>
+            <p>¿Querés unirte a Disney API? <a th:href="@{/auth/register}">Register</a></p>
+        </form>
+
+        <div class="options" sec:authorize="isAuthenticated()">
+            <li>
+                <a th:href="@{/movies}">
+                    <button class="btn btn-light">Movies</button></a>
+                <a th:href="@{/movies/edit}"><button class="btn btn-warning"
+                        sec:authorize="hasRole('ROLE_ADMIN')">Movies Edit</button></a>
+            </li>
+
+            <li>
+                <a th:href="@{/characters}"> <button class="btn btn-light">Characters</button></a>
+                <a th:href="@{/characters/edit}"><button class="btn btn-warning"
+                        sec:authorize="hasRole('ROLE_ADMIN')">Characters
+                        Edit</button></a>
+            </li>
+
+            <li>
+                <a th:href="@{/genres}"></a><button class="btn btn-light">Genres</button></a>
+                <a th:href="@{/genres/edit}"> <button class="btn btn-warning"
+                        sec:authorize="hasRole('ROLE_ADMIN')">Genres Edit</button></a>
+            </li>
+        </div>
+    </main>
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <script th:replace="/fragments/script :: script"></script>
+</body>
+
+</html>

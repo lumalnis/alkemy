@@ -1,8 +1,8 @@
 package com.alkemy.disney.entity;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -10,16 +10,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @Entity
 @Table(name = "characters")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Character {
+public class Character implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Id
-    private Integer personaje_id;
+    private String id;
 
     @OneToOne
     private Image imagen;
@@ -28,7 +30,6 @@ public class Character {
     private Integer edad;
     private Double peso;
     private String historia;
-    
 
     @ManyToOne
     private Movie pelicula;

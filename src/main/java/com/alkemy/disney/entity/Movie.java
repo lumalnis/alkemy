@@ -1,5 +1,6 @@
 package com.alkemy.disney.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,23 +13,23 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
 @Table(name = "movies")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Movie {
+public class Movie implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
     @Id
-    private Integer pelicula_id;
+    private String id;
 
     private String titulo;
 
-    private Integer calificacion;
-
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
 
@@ -37,6 +38,8 @@ public class Movie {
 
     @OneToOne
     private Genre genero;
+
+    private Integer calificacion;
 
 //    @ManyToOne
 //    private Character personajesAsociados;

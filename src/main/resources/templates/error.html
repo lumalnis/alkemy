@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es-AR" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+    <main>
+        <header th:replace="/fragments/header :: header"></header>
+        <div th:if=${error} class="alert alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${error}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if=${success} class="alert alert-success alert-dismissible fade show" role="alert">
+            <span th:text="${success}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="error">
+            <div class="row mt-5">
+                <div class="col">
+                    <div class="display-1 text-center mt-5" style=" font-size: 120px; font-weight: bold; color: black"
+                        th:text="${code}"></div>
+                </div>
+            </div>
+            <div class="row m-5">
+                <div class="col">
+                    <div class="display-1 text-center m-5" style=" font-size: 80px; color: black" th:text="${message}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer th:replace="/fragments/footer :: footer"></footer>
+    <script th:replace="/fragments/script :: script"></script>
+</body>
+
+</html>
